@@ -2,7 +2,9 @@ PATH
   remote: .
   specs:
     troy (0.0.1)
+      builder
       i18n
+      rack
       redcarpet
       sass
       sprockets
@@ -13,6 +15,7 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    builder (3.1.3)
     diff-lcs (1.1.3)
     execjs (1.4.0)
       multi_json (~> 1.0)

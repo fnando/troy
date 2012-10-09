@@ -23,6 +23,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "uglifier"
   gem.add_dependency "therubyracer"
   gem.add_dependency "rack"
+  gem.add_dependency "builder"
 
   gem.add_development_dependency "rspec"
 end
