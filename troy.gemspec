@@ -1,0 +1,28 @@
+# -*- encoding: utf-8 -*-
+require "./lib/troy/version"
+
+Gem::Specification.new do |gem|
+  gem.name          = "troy"
+  gem.version       = Troy::VERSION
+  gem.authors       = ["Nando Vieira"]
+  gem.email         = ["fnando.vieira@gmail.com"]
+  gem.description   = "A static site generator"
+  gem.summary       = gem.description
+  gem.homepage      = "http://github.com/fnando/troy"
+
+  gem.files         = `git ls-files`.split($/)
+  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+  gem.require_paths = ["lib"]
+
+  gem.add_dependency "i18n"
+  gem.add_dependency "thor"
+  gem.add_dependency "redcarpet"
+  gem.add_dependency "sass"
+  gem.add_dependency "sprockets"
+  gem.add_dependency "uglifier"
+  gem.add_dependency "therubyracer"
+  gem.add_dependency "rack"
+
+  gem.add_development_dependency "rspec"
+end
