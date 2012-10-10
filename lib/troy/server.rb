@@ -31,16 +31,17 @@ module Troy
       path
     end
 
+    def redirect(path)
+      [301, {"Content-Type" => "text/html", "Location" => path}, []]
+    end
+
     def process
       path = request.path[%r[^/(.*?)/?$], 1]
       path = "index" if path == ""
       path = root.join(path)
 
       if request.path != "/" && request.path.end_with?("/")
-        [301, {
-          "Content-Type" => "text/html",
-          "Location" => normalized_path
-        }, []]
+        redirect normalized_path
       elsif (_path = Pathname.new("#{path}.html")).file?
         render(200, "text/html", _path)
       elsif (_path = Pathname.new("#{path}.xml")).file?
