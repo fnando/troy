@@ -20,7 +20,7 @@ module Troy
     end
 
     def method_missing(name, *args, &block)
-      self[name]
+      data[name.to_s]
     end
 
     def respond_to_missing?(method, include_private = false)
