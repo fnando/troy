@@ -1,13 +1,10 @@
 require "bundler"
-Bundler.setup(:production)
+Bundler.setup
 Bundler.require
 
 require "troy"
 
-app = Rack::Builder.app do
-  use Rack::ContentLength
-  use Rack::CommonLogger
-  run Troy::Server.new(File.expand_path("../public", __FILE__))
-end
-
-run app
+use Rack::ContentLength
+use Rack::CommonLogger
+use Rack::Deflater
+run Troy::Server.new(File.expand_path("../public", __FILE__))
