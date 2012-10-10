@@ -25,12 +25,23 @@ module Troy
       [status, headers, content]
     end
 
+    def normalized_path
+      path = request.path.gsub(%r[/$], "")
+      path << "?#{request.query_string}" unless request.query_string.empty?
+      path
+    end
+
     def process
       path = request.path[%r[^/(.*?)/?$], 1]
       path = "index" if path == ""
       path = root.join(path)
 
-      if (_path = Pathname.new("#{path}.html")).file?
+      if request.path != "/" && request.path.end_with?("/")
+        [301, {
+          "Content-Type" => "text/html",
+          "Location" => normalized_path
+        }, []]
+      elsif (_path = Pathname.new("#{path}.html")).file?
         render(200, "text/html", _path)
       elsif (_path = Pathname.new("#{path}.xml")).file?
         render(200, "text/xml", _path)
