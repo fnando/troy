@@ -29,6 +29,13 @@ module Troy
       copy_file "index.erb", "source/index.erb"
       copy_file "404.erb", "source/404.erb"
       copy_file "500.erb", "source/500.erb"
+      copy_file "Gemfile", "Gemfile"
+      copy_file "config.ru", "config.ru"
+      copy_file "unicorn.rb", "config/unicorn.rb"
+    end
+
+    def bundle_install
+      run "bundle install"
     end
   end
 end

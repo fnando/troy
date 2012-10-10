@@ -70,6 +70,9 @@ module Troy
       sprockets = Sprockets::Environment.new
       sprockets.append_path root.join("assets/javascripts")
       sprockets.append_path root.join("assets/stylesheets")
+      sprockets.css_compressor = Sprockets::SassCompressor
+      sprockets.js_compressor = Uglifier.new(:copyright => false)
+      sprockets.default_external_encoding = Encoding::UTF_8
 
       Troy.configuration.assets.precompile.each do |asset_name|
         asset = sprockets[asset_name]

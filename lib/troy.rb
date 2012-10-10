@@ -6,6 +6,7 @@ require "sprockets"
 require "thor"
 require "thor/group"
 require "rack"
+require "uglifier"
 
 require "cgi"
 require "fileutils"
