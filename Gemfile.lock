@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    troy (0.0.3)
+    troy (0.0.4)
       builder
       i18n
       rack
