@@ -26,9 +26,9 @@ module Troy
     end
 
     def process
-      path = request.path
-      path = "index" if path == "/"
-      path = root.join(path[%r[^/(.*?)/?$], 1])
+      path = request.path[%r[^/(.*?)/?$], 1]
+      path = "index" if path == ""
+      path = root.join(path)
 
       if (_path = Pathname.new("#{path}.html")).file?
         render(200, "text/html", _path)
