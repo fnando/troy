@@ -38,6 +38,7 @@ module Troy
       export_assets
       export_pages
       copy_images
+      copy_media
     end
 
     #
@@ -60,8 +61,9 @@ module Troy
 
     #
     #
-    def copy_assets
-      FileUtils.cp_r(root.join("assets"), root.join("public"))
+    def copy_media
+      media = root.join("assets/media")
+      FileUtils.cp_r(media, root.join("public")) if media.directory?
     end
 
     #

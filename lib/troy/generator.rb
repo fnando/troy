@@ -18,6 +18,7 @@ module Troy
       empty_directory "assets/javascripts"
       empty_directory "assets/stylesheets"
       empty_directory "assets/images"
+      empty_directory "assets/media"
       empty_directory "source"
       empty_directory "config"
       empty_directory "layouts"
