@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "thor"
   gem.add_dependency "redcarpet"
   gem.add_dependency "sass"
-  gem.add_dependency "sprockets"
+  gem.add_dependency "sprockets", ">= 2.8.0"
   gem.add_dependency "uglifier"
   gem.add_dependency "therubyracer"
   gem.add_dependency "rack"
