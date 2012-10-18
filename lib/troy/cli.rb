@@ -31,6 +31,12 @@ module Troy
       Troy::Site.new(Dir.pwd).export
     end
 
+    desc "version", "Display Troy version"
+    map %w(-v --version) => :version
+    def version
+      say "Troy #{Troy::VERSION}"
+    end
+
     desc "server", "Start a server"
     option :port, :type => :numeric, :default => 9292, :aliases => "-p"
     def server
