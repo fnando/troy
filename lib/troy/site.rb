@@ -37,14 +37,19 @@ module Troy
       remove_public_dir
       export_assets
       export_pages
-      copy_images
-      copy_media
+      export_files
     end
 
     #
     #
-    def copy_images
-      FileUtils.cp_r(root.join("assets/images"), root.join("public/images"))
+    def export_files
+      assets = root.join("assets")
+
+      assets.entries.each do |entry|
+        basename = entry.to_s
+        next if [".", "..", "javascripts", "stylesheets"].include?(basename)
+        FileUtils.cp_r(assets.join(entry), root.join("public/#{basename}"))
+      end
     end
 
     #
@@ -57,13 +62,6 @@ module Troy
     #
     def export_pages
       pages.each(&:save)
-    end
-
-    #
-    #
-    def copy_media
-      media = root.join("assets/media")
-      FileUtils.cp_r(media, root.join("public")) if media.directory?
     end
 
     #
