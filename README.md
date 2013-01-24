@@ -1,12 +1,12 @@
 # Troy
 
-TODO: Write a gem description
+A static site generator.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'troy'
+    gem "troy"
 
 And then execute:
 
@@ -18,7 +18,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ troy
+    Tasks:
+      troy export       # Generate static files
+      troy help [TASK]  # Describe available tasks or one specific task
+      troy new SITE     # Generate a new site structure
+      troy server       # Start a server
+      troy version      # Display Troy version
+      troy watch        # Watch and auto export site
 
 ## Contributing
 
