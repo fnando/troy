@@ -33,6 +33,7 @@ module Troy
       copy_file "Gemfile", "Gemfile"
       copy_file "config.ru", "config.ru"
       copy_file "unicorn.rb", "config/unicorn.rb"
+      copy_file "troy.rb", "config/troy.rb"
     end
 
     def bundle_install
