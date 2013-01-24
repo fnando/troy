@@ -34,6 +34,8 @@ module Troy
       copy_file "config.ru", "config.ru"
       copy_file "unicorn.rb", "config/unicorn.rb"
       copy_file "troy.rb", "config/troy.rb"
+      copy_file "style.scss", "assets/stylesheets/style.scss"
+      copy_file "script.js", "assets/javascripts/script.js"
     end
 
     def bundle_install
