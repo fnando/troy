@@ -22,6 +22,7 @@ module Troy
       empty_directory "source"
       empty_directory "config"
       empty_directory "layouts"
+      empty_directory "partials"
     end
 
     def copy_files
@@ -39,7 +40,9 @@ module Troy
     end
 
     def bundle_install
-      run "bundle install"
+      inside destination_root do
+        run "bundle install"
+      end
     end
   end
 end
