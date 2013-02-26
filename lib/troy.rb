@@ -7,6 +7,7 @@ require "thor"
 require "thor/group"
 require "rack"
 require "uglifier"
+require "html_press"
 
 require "cgi"
 require "fileutils"

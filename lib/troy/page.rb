@@ -60,13 +60,20 @@ module Troy
       }
     end
 
+    #
+    #
+    def compress(content)
+      content = HtmlPress.press(content) if Troy.configuration.compress_html
+      content
+    end
+
     # Render the current page.
     #
     def render
       ExtensionMatcher.new(path)
         .default { content }
-        .on("html") { render_erb }
-        .on("md") { render_erb }
+        .on("html") { compress render_erb }
+        .on("md") { compress render_erb }
         .on("erb") { render_erb }
         .match
     end

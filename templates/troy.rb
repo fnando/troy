@@ -10,4 +10,7 @@ Troy.configure do |config|
   # These are the assets that you want
   # to precompile.
   config.assets.precompile = %w[style.css script.js]
+
+  # Compress HTML, removing whitespaces.
+  config.compress_html = true
 end
