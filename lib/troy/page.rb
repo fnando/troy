@@ -74,7 +74,7 @@ module Troy
         .default { content }
         .on("html") { compress render_erb }
         .on("md") { compress render_erb }
-        .on("erb") { render_erb }
+        .on("erb") { compress render_erb }
         .match
     end
 
