@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    troy (0.0.12)
+    troy (0.0.13)
       builder
       html_press
       i18n
