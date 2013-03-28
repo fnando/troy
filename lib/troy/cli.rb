@@ -7,7 +7,7 @@ module Troy
     end
 
     def initialize(args = [], options = {}, config = {})
-      if config[:current_task].name == "new" && args.empty?
+      if (config[:current_task] || config[:current_command]).name == "new" && args.empty?
         raise Error, "The site path is required. For details run: troy help new"
       end
 
