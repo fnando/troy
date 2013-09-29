@@ -60,7 +60,7 @@ module Troy
 
     #
     #
-    def export_pages(file)
+    def export_pages(file = nil)
       file = File.expand_path(file) if file
 
       pages
