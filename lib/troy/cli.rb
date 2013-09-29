@@ -14,21 +14,23 @@ module Troy
       super
     end
 
+    options assets: :boolean, file: :string
+    desc "export", "Export files"
+    def export
+      if options[:assets]
+        site.export_assets
+      elsif options[:file]
+        site.export_pages(options[:file])
+      else
+        site.export
+      end
+    end
+
     desc "new SITE", "Generate a new site structure"
     def new(path)
       generator = Generator.new
       generator.destination_root = path
       generator.invoke_all
-    end
-
-    desc "export", "Generate static files"
-    def export
-      Troy::Site.new(Dir.pwd).export
-    end
-
-    desc "watch", "Watch and auto export site"
-    def watch
-      Troy::Site.new(Dir.pwd).export
     end
 
     desc "version", "Display Troy version"
@@ -42,6 +44,11 @@ module Troy
     def server
       handler = Rack::Handler::Thin rescue Rack::Handler::WEBrick
       handler.run Troy::Server.new(File.join(Dir.pwd, "public")), :Port => options[:port]
+    end
+
+    private
+    def site
+      @site ||= Troy::Site.new(Dir.pwd)
     end
   end
 end

@@ -60,8 +60,12 @@ module Troy
 
     #
     #
-    def export_pages
-      pages.each(&:save)
+    def export_pages(file)
+      file = File.expand_path(file) if file
+
+      pages
+        .select {|page| file.nil? || page.path == file }
+        .each(&:save)
     end
 
     #
