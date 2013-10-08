@@ -19,6 +19,7 @@ module Troy
     def export
       if options[:assets]
         site.export_assets
+        site.export_files
       elsif options[:file]
         site.export_pages(options[:file])
       else

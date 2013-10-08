@@ -9,7 +9,12 @@ module Troy
 
   class Configuration < OpenStruct
     def assets
-      @assets ||= Configuration.new
+      @assets ||= Configuration.new({
+        compress_html: true,
+        compress_css: true,
+        compress_js: true,
+        precompile: []
+      })
     end
 
     def i18n

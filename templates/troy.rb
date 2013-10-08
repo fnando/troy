@@ -12,5 +12,11 @@ Troy.configure do |config|
   config.assets.precompile = %w[style.css script.js]
 
   # Compress HTML, removing whitespaces.
-  config.compress_html = true
+  config.assets.compress_html = true
+
+  # Compress JavaScript.
+  config.assets.compress_js = true
+
+  # Compress CSS.
+  config.assets.compress_css = true
 end

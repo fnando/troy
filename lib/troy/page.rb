@@ -63,7 +63,7 @@ module Troy
     #
     #
     def compress(content)
-      content = HtmlPress.press(content) if Troy.configuration.compress_html
+      content = HtmlPress.press(content) if config.assets.compress_html
       content
     end
 
@@ -134,6 +134,12 @@ module Troy
     def save
       FileUtils.mkdir_p(File.dirname(output_file))
       save_to(output_file)
+    end
+
+    #
+    #
+    def config
+      Troy.configuration
     end
   end
 end

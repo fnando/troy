@@ -21,8 +21,8 @@ module Troy
     #
     #
     def set_locale
-      I18n.load_path += Troy.configuration.i18n.load_path
-      I18n.locale = Troy.configuration.i18n.locale
+      I18n.load_path += config.i18n.load_path
+      I18n.locale = config.i18n.locale
     end
 
     #
@@ -74,11 +74,11 @@ module Troy
       sprockets = Sprockets::Environment.new
       sprockets.append_path root.join("assets/javascripts")
       sprockets.append_path root.join("assets/stylesheets")
-      sprockets.css_compressor = Sprockets::SassCompressor
-      sprockets.js_compressor = Uglifier.new(:copyright => false)
+      sprockets.css_compressor = Sprockets::SassCompressor if config.assets.compress_css
+      sprockets.js_compressor = Uglifier.new(copyright: false) if config.assets.compress_js
       sprockets.default_external_encoding = Encoding::UTF_8
 
-      Troy.configuration.assets.precompile.each do |asset_name|
+      config.assets.precompile.each do |asset_name|
         asset = sprockets[asset_name]
         output_file = asset.pathname.to_s
           .gsub(root.join("assets").to_s, "")
@@ -100,6 +100,11 @@ module Troy
     #
     def pages
       @pages ||= source.map {|path| Page.new(self, path) }
+    end
+
+    # A shortcut to the configuration.
+    def config
+      Troy.configuration
     end
   end
 end
