@@ -15,6 +15,14 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
+  gem.post_install_message = <<-TEXT
+
+=> Troy's configuration file has been updated.
+=> Please update it according to the new template.
+=> http://fnando.me/ny
+
+  TEXT
+
   gem.add_dependency "i18n"
   gem.add_dependency "thor"
   gem.add_dependency "redcarpet"
