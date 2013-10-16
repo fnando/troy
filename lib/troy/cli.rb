@@ -43,7 +43,13 @@ module Troy
     desc "server", "Start a server"
     option :port, :type => :numeric, :default => 9292, :aliases => "-p"
     def server
-      handler = Rack::Handler::Thin rescue Rack::Handler::WEBrick
+      begin
+        handler = Rack::Handler::Thin
+        Thin::Logging.level = Logger::DEBUG
+      rescue Exception
+        handler = Rack::Handler::WEBrick
+      end
+
       handler.run Troy::Server.new(File.join(Dir.pwd, "public")), :Port => options[:port]
     end
 

@@ -48,14 +48,15 @@ module Troy
       assets.entries.each do |entry|
         basename = entry.to_s
         next if [".", "..", "javascripts", "stylesheets"].include?(basename)
-        FileUtils.cp_r(assets.join(entry), root.join("public/#{basename}"))
+        FileUtils.rm_rf root.join("public/#{basename}")
+        FileUtils.cp_r assets.join(entry), root.join("public/#{basename}")
       end
     end
 
     #
     #
     def remove_public_dir
-      FileUtils.rm_rf(root.join("public"))
+      FileUtils.rm_rf root.join("public")
     end
 
     #

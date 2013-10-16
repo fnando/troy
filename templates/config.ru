@@ -1,7 +1,4 @@
-require "bundler"
-Bundler.setup
-Bundler.require
-
+require "bundler/setup"
 require "troy"
 
 use Rack::ContentLength
