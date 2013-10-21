@@ -3,10 +3,22 @@ module Troy
     # Create a new Redcarpet renderer, that prepares the code block
     # to use Prisme.js syntax.
     #
-    class Renderer < Redcarpet::Render::HTML
+    module PrismJs
       def block_code(code, language)
         %[<pre class="language-#{language}"><code>#{CGI.escapeHTML(code)}</code></pre>]
       end
+    end
+
+    # Create a new Redcarpet renderer, that prepares the code block
+    # to use Prisme.js syntax.
+    #
+    module Rouge
+      include ::Rouge::Plugins::Redcarpet
+    end
+
+    class Renderer < Redcarpet::Render::HTML
+      include Redcarpet::Render::SmartyPants
+      include Rouge
     end
 
     # Set the Markdown markup that must be rendered.

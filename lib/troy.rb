@@ -8,6 +8,8 @@ require "thor/group"
 require "rack"
 require "uglifier"
 require "html_press"
+require "rouge"
+require "rouge/plugins/redcarpet"
 
 require "cgi"
 require "fileutils"
