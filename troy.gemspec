@@ -28,6 +28,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "redcarpet"
   gem.add_dependency "rouge"
   gem.add_dependency "sass"
+  gem.add_dependency "sass-globbing"
   gem.add_dependency "sprockets", ">= 2.8.0"
   gem.add_dependency "uglifier"
   gem.add_dependency "rack"
