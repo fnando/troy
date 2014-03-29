@@ -36,8 +36,8 @@ module Troy
     def export
       remove_public_dir
       export_assets
-      export_pages
       export_files
+      export_pages
     end
 
     #
