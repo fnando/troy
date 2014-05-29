@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    troy (0.0.23)
+    troy (0.0.24)
       builder
       html_press
       i18n
@@ -22,27 +22,28 @@ GEM
       csspool-st (= 3.1.2)
       json
     csspool-st (3.1.2)
-    execjs (2.0.2)
+    execjs (2.1.0)
     hike (1.2.3)
     html_press (0.8.2)
       htmlentities
       multi_css (>= 0.1.0)
       multi_js (>= 0.1.0)
     htmlentities (4.3.1)
-    i18n (0.6.9)
+    i18n (0.6.10)
     json (1.8.1)
     multi_css (0.1.0)
       css_press
     multi_js (0.1.0)
       uglifier (~> 2)
-    multi_json (1.9.2)
+    multi_json (1.10.1)
     rack (1.5.2)
-    redcarpet (3.1.1)
-    rouge (1.3.3)
-    sass (3.3.4)
-    sass-globbing (1.1.0)
+    rake (10.3.2)
+    redcarpet (3.1.2)
+    rouge (1.4.0)
+    sass (3.3.7)
+    sass-globbing (1.1.1)
       sass (>= 3.1)
-    sprockets (2.12.0)
+    sprockets (2.12.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -57,4 +58,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  rake
   troy!

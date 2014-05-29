@@ -6,7 +6,7 @@ module Troy
 
     def partial(name, locals = {})
       path = site.root.join("partials/_#{name}.erb")
-      EmbeddedRuby.new(path.read, locals).render
+      EmbeddedRuby.new(path.read, locals.merge(site: site)).render
     end
 
     def inline_file(path)

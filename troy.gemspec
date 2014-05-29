@@ -34,4 +34,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency "rack"
   gem.add_dependency "builder"
   gem.add_dependency "html_press"
+  gem.add_development_dependency "rake"
 end
