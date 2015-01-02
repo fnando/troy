@@ -42,6 +42,7 @@ module Troy
 
     desc "server", "Start a server"
     option :port, :type => :numeric, :default => 9292, :aliases => "-p"
+    option :host, :type => :string, :default => "0.0.0.0", :aliases => "-b"
     def server
       begin
         handler = Rack::Handler::Thin
@@ -50,7 +51,7 @@ module Troy
         handler = Rack::Handler::WEBrick
       end
 
-      handler.run Troy::Server.new(File.join(Dir.pwd, "public")), :Port => options[:port]
+      handler.run Troy::Server.new(File.join(Dir.pwd, "public")), :Port => options[:port], :Host => options[:host]
     end
 
     private
