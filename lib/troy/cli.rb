@@ -14,14 +14,16 @@ module Troy
       super
     end
 
-    options assets: :boolean, file: :string
+    options assets: :boolean, file: :array
     desc "export", "Export files"
     def export
       if options[:assets]
         site.export_assets
         site.export_files
       elsif options[:file]
-        site.export_pages(options[:file])
+        options[:file].each do |file|
+          site.export_pages(file)
+        end
       else
         site.export
       end
