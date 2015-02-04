@@ -116,7 +116,11 @@ module Troy
     # Save current page to the specified path.
     #
     def save_to(path)
-      File.open(path, "w") {|file| file << render }
+      File.open(path, "w") do |file|
+        I18n.with_locale(meta.locale) do
+          file << render
+        end
+      end
     end
 
     #

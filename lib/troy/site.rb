@@ -22,6 +22,7 @@ module Troy
     #
     def set_locale
       I18n.load_path += config.i18n.load_path
+      I18n.default_locale = config.i18n.locale
       I18n.locale = config.i18n.locale
     end
 
