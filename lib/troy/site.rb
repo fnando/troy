@@ -95,7 +95,7 @@ module Troy
     #
     #
     def source
-      Dir[root.join("source/**/*.{html,erb,md,builder,xml}").to_s]
+      Dir[root.join("source/**/*.{html,erb,md,builder,xml,txt}").to_s]
     end
 
     # Return all pages wrapped in Troy::Page class.

@@ -48,6 +48,7 @@ module Troy
         .on("builder") { XML.new(meta.content, to_context).to_xml }
         .on("erb") { EmbeddedRuby.new(meta.content, to_context).render }
         .on("md") { Markdown.new(meta.content).to_html }
+        .on("txt") { EmbeddedRuby.new(meta.content, to_context).render }
         .match
     end
 
@@ -91,6 +92,7 @@ module Troy
         .default { "#{permalink}.html" }
         .on("builder") { "#{permalink}.xml" }
         .on("xml") { "#{permalink}.xml" }
+        .on("txt") { "#{permalink}.txt" }
         .match
     end
 
