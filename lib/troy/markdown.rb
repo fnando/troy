@@ -31,9 +31,10 @@ module Troy
 
     def renderer
       @renderer ||= Redcarpet::Markdown.new(Renderer, {
-        :autolink => true,
-        :space_after_headers => true,
-        :fenced_code_blocks => true
+        autolink: true,
+        space_after_headers: true,
+        fenced_code_blocks: true,
+        footnotes: true
       })
     end
 
