@@ -1,4 +1,6 @@
 module Troy
+  ::I18n.enforce_available_locales = false
+
   def self.configuration
     @configuration ||= Configuration.new
   end
