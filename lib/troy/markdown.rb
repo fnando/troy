@@ -17,6 +17,7 @@ module Troy
     end
 
     class Renderer < Redcarpet::Render::HTML
+      include Redcarpet::Render::HTMLAbbreviations
       include Redcarpet::Render::SmartyPants
       include Rouge
     end

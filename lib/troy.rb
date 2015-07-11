@@ -1,6 +1,7 @@
 require "builder"
 require "i18n"
 require "redcarpet"
+require "redcarpet-abbreviations"
 require "sass"
 require "sass-globbing"
 require "sprockets"

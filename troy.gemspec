@@ -26,6 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "i18n"
   gem.add_dependency "thor"
   gem.add_dependency "redcarpet"
+  gem.add_dependency "redcarpet-abbreviations"
   gem.add_dependency "rouge"
   gem.add_dependency "sass"
   gem.add_dependency "sass-globbing"
