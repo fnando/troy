@@ -10,8 +10,11 @@ require "thor/group"
 require "rack"
 require "uglifier"
 require "html_press"
+
+level, $VERBOSE = $VERBOSE, nil
 require "rouge"
 require "rouge/plugins/redcarpet"
+$VERBOSE = level
 
 require "cgi"
 require "fileutils"
