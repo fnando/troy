@@ -20,11 +20,15 @@ module Troy
       if options[:assets]
         site.export_assets
         site.export_files
-      elsif options[:file]
+      end
+
+      if options[:file]
         options[:file].each do |file|
           site.export_pages(file)
         end
-      else
+      end
+
+      if !options[:assets] && !options[:file]
         site.export
       end
     end
