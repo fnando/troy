@@ -16,23 +16,16 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.license       = "MIT"
 
-  gem.post_install_message = <<-TEXT
-
-=> Troy's configuration file has been updated.
-=> Please update it according to the new template.
-=> http://fnando.me/ny
-
-  TEXT
-
   gem.add_dependency "i18n"
   gem.add_dependency "thor"
   gem.add_dependency "redcarpet"
   gem.add_dependency "redcarpet-abbreviations"
   gem.add_dependency "rouge"
   gem.add_dependency "sass"
+  gem.add_dependency "cssminify"
   gem.add_dependency "sass-globbing"
   gem.add_dependency "sprockets", ">= 2.8.0"
-  gem.add_dependency "uglifier"
+  gem.add_dependency "uglifier", ">= 4.0.0"
   gem.add_dependency "rack"
   gem.add_dependency "builder"
   gem.add_dependency "html_press"

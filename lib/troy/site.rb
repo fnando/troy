@@ -77,7 +77,7 @@ module Troy
       sprockets.append_path root.join("assets/javascripts")
       sprockets.append_path root.join("assets/stylesheets")
       sprockets.css_compressor = Sprockets::SassCompressor if config.assets.compress_css
-      sprockets.js_compressor = Uglifier.new(copyright: false) if config.assets.compress_js
+      sprockets.js_compressor = Uglifier.new(uglifier_options) if config.assets.compress_js
 
       config.assets.precompile.each do |asset_name|
         asset = sprockets[asset_name]
@@ -89,6 +89,15 @@ module Troy
 
         asset.write_to root.join("public/#{output_file}")
       end
+    end
+
+    #
+    #
+    #
+    def uglifier_options
+      options = Uglifier::DEFAULTS.dup
+      options[:output][:comments] = :none
+      options
     end
 
     #
