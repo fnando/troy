@@ -10,7 +10,8 @@ module Troy
 
     def partial(name, locals = {})
       path = site.root.join("partials/_#{name}.erb")
-      EmbeddedRuby.new(path.read, locals.merge(site: site)).render
+      locals = locals.merge(site: site, page: page)
+      EmbeddedRuby.new(path.read, locals).render
     rescue Exception, StandardError => error
       raise "Unable to render #{path}; #{error.message}"
     end
