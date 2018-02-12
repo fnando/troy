@@ -21,10 +21,10 @@ module Troy
     # Initialize a new page, which can be simply rendered or
     # persisted to the filesystem.
     #
-    def initialize(site, path)
+    def initialize(site, path, meta = nil)
       @site = site
       @path = path
-      @meta = Meta.new(path)
+      @meta = meta || Meta.new(path)
     end
 
     #
@@ -56,8 +56,8 @@ module Troy
     #
     def to_context
       {
-        :page => self,
-        :site => site
+        page: self,
+        site: site
       }
     end
 
@@ -108,7 +108,7 @@ module Troy
       if layout.exist?
         EmbeddedRuby.new(
           layout.read,
-          to_context.merge(:content => content)
+          to_context.merge(content: content)
         ).render
       else
         content

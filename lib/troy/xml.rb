@@ -15,11 +15,11 @@ module Troy
     end
 
     def context
-      @context ||= Context.new(data.merge(:xml => xml)).extend(Helpers)
+      @context ||= Context.new(data.merge(xml: xml)).extend(Helpers)
     end
 
     def xml
-      @xml ||= Builder::XmlMarkup.new(:indent => 2)
+      @xml ||= Builder::XmlMarkup.new(indent: 2)
     end
 
     def to_xml

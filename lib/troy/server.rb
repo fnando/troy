@@ -46,7 +46,7 @@ module Troy
         render(200, "text/html; charset=utf-8", _path)
       elsif (_path = Pathname.new("#{path}.xml")).file?
         render(200, "text/xml; charset=utf-8", _path)
-      elsif path.file? && path.extname !~ /\.(html?|xml)$/
+      elsif path.file?
         render(200, Rack::Mime.mime_type(path.extname, "text/plain"), path)
       else
         render(404, "text/html; charset=utf-8", root.join("404.html"))

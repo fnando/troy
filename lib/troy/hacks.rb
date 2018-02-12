@@ -5,7 +5,7 @@ module HtmlPress
 
   def self.js_compressor (text, options = nil)
     options ||= {}
-    options[:output] ||= {:inline_script => true}
+    options[:output] ||= {inline_script: true}
 
     hash = Digest::SHA1.hexdigest(text)
     CONTENT_CACHE[hash] ||= MultiJs.compile(text, options).gsub(/;$/,'')
