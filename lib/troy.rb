@@ -1,3 +1,6 @@
+Encoding.default_external = "UTF-8"
+Encoding.default_internal = "UTF-8"
+
 require "builder"
 require "i18n"
 require "redcarpet"
