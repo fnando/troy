@@ -9,7 +9,15 @@ module Troy
     end
 
     def partial(name, locals = {})
-      path = site.root.join("partials/_#{name}.erb")
+      basename = File.basename(name)
+      dirname = File.dirname(name)
+
+      partial = []
+      partial << dirname unless dirname.start_with?(".")
+      partial << "_#{basename}.erb"
+      partial = partial.join("/")
+
+      path = site.root.join("partials/#{partial}")
       locals = locals.merge(site: site, page: page)
       EmbeddedRuby.new(path.read, locals).render
     rescue Exception, StandardError => error
