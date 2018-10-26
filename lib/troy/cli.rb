@@ -15,21 +15,33 @@ module Troy
     end
 
     options assets: :boolean, file: :array
+    option :concurrency, type: :numeric, default: 10
+    option :benchmark, type: :boolean, default: false
     desc "export", "Export files"
     def export
-      if options[:assets]
-        site.export_assets
-        site.export_files
-      end
+      runner = lambda do
+        if options[:assets]
+          site.export_assets
+          site.export_files
+        end
 
-      if options[:file]
-        options[:file].each do |file|
-          site.export_pages(file)
+        if options[:file]
+          options[:file].each do |file|
+            site.export_pages(file)
+          end
+        end
+
+        if !options[:assets] && !options[:file]
+          site.export
         end
       end
 
-      if !options[:assets] && !options[:file]
-        site.export
+      if options[:benchmark]
+        require "benchmark"
+        elapsed = Benchmark.realtime(&runner)
+        puts "=> Finished in #{elapsed.round(2)}s"
+      else
+        runner.call
       end
     end
 
@@ -62,7 +74,7 @@ module Troy
 
     private
     def site
-      @site ||= Troy::Site.new(Dir.pwd)
+      @site ||= Troy::Site.new(Dir.pwd, options)
     end
   end
 end

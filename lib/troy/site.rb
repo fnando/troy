@@ -1,9 +1,10 @@
 module Troy
   class Site
-    attr_accessor :root
+    attr_accessor :root, :options
 
-    def initialize(root)
+    def initialize(root, options)
       @root = Pathname.new(root).realpath
+      @options = options
 
       load_configuration
       load_extensions
@@ -46,12 +47,18 @@ module Troy
     def export_files
       assets = root.join("assets")
 
-      assets.entries.each do |entry|
-        basename = entry.to_s
-        next if [".", "..", "javascripts", "stylesheets"].include?(basename)
-        FileUtils.rm_rf root.join("public/#{basename}")
-        FileUtils.cp_r assets.join(entry), root.join("public/#{basename}")
+      assets.entries.each_slice(options[:concurrency]) do |slice|
+        slice.map do |entry|
+          Thread.new { export_file(assets, entry) }
+        end.each(&:join)
       end
+    end
+
+    def export_file(assets, entry)
+      basename = entry.to_s
+      return if [".", "..", "javascripts", "stylesheets"].include?(basename)
+      FileUtils.rm_rf root.join("public/#{basename}")
+      FileUtils.cp_r assets.join(entry), root.join("public/#{basename}")
     end
 
     #
@@ -67,7 +74,13 @@ module Troy
 
       pages
         .select {|page| file.nil? || page.path == file }
-        .each(&:save)
+        .each_slice(options[:concurrency]) do |slice|
+          threads = slice.map do |page|
+            Thread.new { page.save }
+          end
+
+          threads.each(&:join)
+        end
     end
 
     #
@@ -79,16 +92,22 @@ module Troy
       sprockets.css_compressor = Sprockets::SassCompressor if config.assets.compress_css
       sprockets.js_compressor = Uglifier.new(uglifier_options) if config.assets.compress_js
 
-      config.assets.precompile.each do |asset_name|
-        asset = sprockets[asset_name]
-        output_file = asset.pathname.to_s
-          .gsub(root.join("assets").to_s, "")
-          .gsub(%r[^/], "")
-          .gsub(/\.scss$/, ".css")
-          .gsub(/\.coffee$/, ".js")
-
-        asset.write_to root.join("public/#{output_file}")
+      config.assets.precompile.each_slice(options[:concurrency]) do |slice|
+        slice.map do |asset_name|
+          Thread.new { export_asset(sprockets, asset_name) }
+        end.each(&:join)
       end
+    end
+
+    def export_asset(sprockets, asset_name)
+      asset = sprockets[asset_name]
+      output_file = asset.pathname.to_s
+        .gsub(root.join("assets").to_s, "")
+        .gsub(%r[^/], "")
+        .gsub(/\.scss$/, ".css")
+        .gsub(/\.coffee$/, ".js")
+
+      asset.write_to root.join("public/#{output_file}")
     end
 
     #

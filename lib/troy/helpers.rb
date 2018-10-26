@@ -9,9 +9,9 @@ module Troy
     end
 
     def partial(name, locals = {})
+      name = name.to_s
       basename = File.basename(name)
       dirname = File.dirname(name)
-
       partial = []
       partial << dirname unless dirname.start_with?(".")
       partial << "_#{basename}.erb"
