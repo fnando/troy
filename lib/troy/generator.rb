@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Troy
   # The Troy::Generator class will create a new book structure.
   #
@@ -11,7 +13,7 @@ module Troy
     desc "Generate a new site structure"
 
     def self.source_root
-      File.expand_path("../../../templates", __FILE__)
+      File.expand_path("../../templates", __dir__)
     end
 
     def create_directories

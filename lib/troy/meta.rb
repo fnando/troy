@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Troy
   class Meta
     extend Forwardable
     def_delegators :data, :[], :fetch, :key?
 
-    REGEX = /^---\n(.*?)\n---\n+/m
+    REGEX = /^---\n(.*?)\n---\n+/m.freeze
 
     attr_reader :file
 
@@ -16,14 +18,15 @@ module Troy
     end
 
     def data
-      @data ||= (raw =~ REGEX ? YAML.load(raw[REGEX, 1]) : {})
+      @data ||=
+        raw =~ REGEX ? YAML.safe_load(raw[REGEX, 1], [Date, Time]) : {}
     end
 
-    def method_missing(name, *args, &block)
+    def method_missing(name, *_args)
       data[name.to_s]
     end
 
-    def respond_to_missing?(method, include_private = false)
+    def respond_to_missing?(_method, _include_private = false)
       true
     end
 

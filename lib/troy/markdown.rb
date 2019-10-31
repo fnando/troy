@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Troy
   class Markdown
     # Create a new Redcarpet renderer, that prepares the code block
@@ -31,12 +33,11 @@ module Troy
     end
 
     def renderer
-      @renderer ||= Redcarpet::Markdown.new(Renderer, {
-        autolink: true,
-        space_after_headers: true,
-        fenced_code_blocks: true,
-        footnotes: true
-      })
+      @renderer ||= Redcarpet::Markdown.new(Renderer,
+                                            autolink: true,
+                                            space_after_headers: true,
+                                            fenced_code_blocks: true,
+                                            footnotes: true)
     end
 
     def to_html

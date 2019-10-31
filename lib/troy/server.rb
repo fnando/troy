@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Troy
   class Server
     attr_reader :root, :request
@@ -13,7 +15,9 @@ module Troy
 
     def render(status, content_type, path)
       last_modified = path.mtime.httpdate
-      return [304, {}, []] if request.env["HTTP_IF_MODIFIED_SINCE"] == last_modified
+      if request.env["HTTP_IF_MODIFIED_SINCE"] == last_modified
+        return [304, {}, []]
+      end
 
       headers = {
         "Content-Type" => content_type,
@@ -26,7 +30,7 @@ module Troy
     end
 
     def normalized_path
-      path = request.path.gsub(%r[/$], "")
+      path = request.path.gsub(%r{/$}, "")
       path << "?#{request.query_string}" unless request.query_string.empty?
       path
     end
@@ -36,7 +40,7 @@ module Troy
     end
 
     def process
-      path = request.path[%r[^/(.*?)/?$], 1]
+      path = request.path[%r{^/(.*?)/?$}, 1]
       path = "index" if path == ""
       path = root.join(path)
 

@@ -1,14 +1,18 @@
+# frozen_string_literal: true
+
 require "digest/sha1"
 
 module HtmlPress
-  CONTENT_CACHE = {}
+  def self.content_cache
+    @content_cache ||= {}
+  end
 
-  def self.js_compressor (text, options = nil)
+  def self.js_compressor(text, options = nil)
     options ||= {}
     options[:output] ||= {inline_script: true}
 
     hash = Digest::SHA1.hexdigest(text)
-    CONTENT_CACHE[hash] ||= MultiJs.compile(text, options).gsub(/;$/,'')
-    CONTENT_CACHE[hash]
+    content_cache[hash] ||= MultiJs.compile(text, options).gsub(/;$/, "")
+    content_cache[hash]
   end
 end
