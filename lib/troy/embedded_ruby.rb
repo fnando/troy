@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Troy
   class EmbeddedRuby
     # The template content.

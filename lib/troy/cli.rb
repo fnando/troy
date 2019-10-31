@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Troy
   class Cli < Thor
     check_unknown_options!
@@ -25,15 +27,11 @@ module Troy
           site.export_files
         end
 
-        if options[:file]
-          options[:file].each do |file|
-            site.export_pages(file)
-          end
+        options[:file]&.each do |file|
+          site.export_pages(file)
         end
 
-        if !options[:assets] && !options[:file]
-          site.export
-        end
+        site.export if !options[:assets] && !options[:file]
       end
 
       if options[:benchmark]
@@ -53,14 +51,14 @@ module Troy
     end
 
     desc "version", "Display Troy version"
-    map %w(-v --version) => :version
+    map %w[-v --version] => :version
     def version
       say "Troy #{Troy::VERSION}"
     end
 
     desc "server", "Start a server"
-    option :port, :type => :numeric, :default => 9292, :aliases => "-p"
-    option :host, :type => :string, :default => "0.0.0.0", :aliases => "-b"
+    option :port, type: :numeric, default: 9292, aliases: "-p"
+    option :host, type: :string, default: "0.0.0.0", aliases: "-b"
     def server
       begin
         handler = Rack::Handler::Thin
@@ -69,12 +67,13 @@ module Troy
         handler = Rack::Handler::WEBrick
       end
 
-      handler.run Troy::Server.new(File.join(Dir.pwd, "public")), :Port => options[:port], :Host => options[:host]
+      handler.run Troy::Server.new(File.join(Dir.pwd, "public")), Port: options[:port], Host: options[:host]
     end
 
-    private
-    def site
-      @site ||= Troy::Site.new(Dir.pwd, options)
+    no_commands do
+      def site
+        @site ||= Troy::Site.new(Dir.pwd, options)
+      end
     end
   end
 end

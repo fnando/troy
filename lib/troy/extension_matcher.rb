@@ -1,15 +1,11 @@
+# frozen_string_literal: true
+
 module Troy
   class ExtensionMatcher
-    #
-    #
     attr_reader :path
 
-    #
-    #
     attr_reader :performed
 
-    #
-    #
     attr_reader :matchers
 
     def initialize(path)
@@ -32,7 +28,7 @@ module Troy
         return handler.call if File.extname(path) == ext
       end
 
-      matchers["default"].call if matchers["default"]
+      matchers["default"]&.call
     end
   end
 end

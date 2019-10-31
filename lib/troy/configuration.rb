@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Troy
   ::I18n.enforce_available_locales = false
 
@@ -5,18 +7,18 @@ module Troy
     @configuration ||= Configuration.new
   end
 
-  def self.configure(&block)
+  def self.configure
     yield configuration
   end
 
   class Configuration < OpenStruct
     def assets
-      @assets ||= Configuration.new({
+      @assets ||= Configuration.new(
         compress_html: true,
         compress_css: true,
         compress_js: true,
         precompile: []
-      })
+      )
     end
 
     def i18n

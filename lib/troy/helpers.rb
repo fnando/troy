@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Troy
   module Helpers
     def h(content)
@@ -20,7 +22,7 @@ module Troy
       path = site.root.join("partials/#{partial}")
       locals = locals.merge(site: site, page: page)
       EmbeddedRuby.new(path.read, locals).render
-    rescue Exception, StandardError => error
+    rescue Exception => error
       raise "Unable to render #{path}; #{error.message}"
     end
 
