@@ -19,7 +19,7 @@ module Troy
 
     def data
       @data ||=
-        raw =~ REGEX ? YAML.safe_load(raw[REGEX, 1], [Date, Time]) : {}
+        raw =~ REGEX ? YAML.unsafe_load(raw[REGEX, 1]) : {}
     end
 
     def method_missing(name, *_args)
