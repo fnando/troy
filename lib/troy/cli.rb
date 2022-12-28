@@ -61,10 +61,9 @@ module Troy
     option :host, type: :string, default: "0.0.0.0", aliases: "-b"
     def server
       begin
-        handler = Rack::Handler::Thin
-        Thin::Logging.level = Logger::DEBUG
+        handler = Rack::Handler.pick(%w[puma thin unicorn webrick])
       rescue Exception
-        handler = Rack::Handler::WEBrick
+        raise Error, "No Rack handler found. Install a Rack handler (e.g. puma, thing, unicorn, webrick)"
       end
 
       handler.run Troy::Server.new(File.join(Dir.pwd, "public")), Port: options[:port], Host: options[:host]
