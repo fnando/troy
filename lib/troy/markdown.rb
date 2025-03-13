@@ -2,12 +2,16 @@
 
 module Troy
   class Markdown
+    # Match the id portion of a header, as in `# Title {#custom-id}`.
+    HEADING_ID = /^(?<text>.*?)(?: {#(?<id>.*?)})?$/
+
     # Create a new Redcarpet renderer, that prepares the code block
     # to use Prisme.js syntax.
     #
     module PrismJs
       def block_code(code, language)
-        %[<pre class="language-#{language}"><code>#{CGI.escapeHTML(code)}</code></pre>]
+        code = CGI.escapeHTML(code)
+        %[<pre class="language-#{language}"><code>#{code}</code></pre>]
       end
     end
 
@@ -16,6 +20,40 @@ module Troy
     #
     module Rouge
       include ::Rouge::Plugins::Redcarpet
+
+      def header(text, level)
+        matches = text.strip.match(HEADING_ID)
+        title = matches[:text].strip
+        html = Nokogiri::HTML.fragment("<h#{level}>#{title}</h#{level}>")
+        heading = html.first_element_child
+        title = heading.text
+
+        id = matches[:id]
+        id ||= permalink(title)
+
+        heading_counter[id] += 1
+        id = "#{id}-#{heading_counter[id]}" if heading_counter[id] > 1
+
+        heading.add_child %[<a class="anchor" href="##{id}" aria-hidden="true" tabindex="-1"></a>] # rubocop:disable Style/LineLength
+        heading.set_attribute :tabindex, "-1"
+        heading.set_attribute(:id, id)
+
+        heading.to_s
+      end
+
+      def permalink(text)
+        str = text.dup.unicode_normalize(:nfkd)
+        str = str.gsub(/[^\x00-\x7F]/, "").to_s
+        str.gsub!(/[^-\w]+/xim, "-")
+        str.gsub!(/-+/xm, "-")
+        str.gsub!(/^-?(.*?)-?$/, '\1')
+        str.downcase!
+        str
+      end
+
+      def heading_counter
+        @heading_counter ||= Hash.new {|h, k| h[k] = 0}
+      end
     end
 
     class Renderer < Redcarpet::Render::HTML
@@ -37,7 +75,11 @@ module Troy
                                             autolink: true,
                                             space_after_headers: true,
                                             fenced_code_blocks: true,
-                                            footnotes: true)
+                                            footnotes: true,
+                                            tables: true,
+                                            underline: true,
+                                            strikethrough: true,
+                                            highlight: true)
     end
 
     def to_html

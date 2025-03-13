@@ -9,7 +9,11 @@ module Troy
     end
 
     def initialize(args = [], options = {}, config = {})
-      if (config[:current_task] || config[:current_command]).name == "new" && args.empty?
+      has_error =
+        (config[:current_task] || config[:current_command]).name == "new" &&
+        args.empty?
+
+      if has_error
         raise Error, "The site path is required. For details run: troy help new"
       end
 
@@ -62,9 +66,10 @@ module Troy
     def server
       begin
         handler = Rackup::Handler.pick(%i[puma thin webrick])
-      rescue Exception
+      rescue StandardError
         raise Error,
-              "No Rack handler found. Install a Rack handler (e.g. puma, thing, unicorn, webrick)"
+              "No Rack handler found. Install a Rack handler " \
+              "(e.g. puma, thing, webrick)"
       end
 
       handler.run Troy::Server.new(File.join(Dir.pwd, "public")),

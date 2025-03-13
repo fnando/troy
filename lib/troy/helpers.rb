@@ -22,7 +22,7 @@ module Troy
       path = site.root.join("partials/#{partial}")
       locals = locals.merge(site: site, page: page)
       EmbeddedRuby.new(path.read, locals).render
-    rescue Exception => error
+    rescue StandardError => error
       raise "Unable to render #{path}; #{error.message}"
     end
 

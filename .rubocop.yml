@@ -8,3 +8,6 @@ AllCops:
   Exclude:
     - vendor/**/*
     - gemfiles/**/*
+
+Style/OpenStructUse:
+  Enabled: false

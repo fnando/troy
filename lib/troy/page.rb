@@ -66,11 +66,11 @@ module Troy
     #
     def render
       ExtensionMatcher.new(path)
-                      .default { content }
-                      .on("html") { compress render_erb }
-                      .on("md") { compress render_erb }
-                      .on("erb") { compress render_erb }
-                      .match
+                                  .default { content }
+                                  .on("html") { compress render_erb }
+                                  .on("md") { compress render_erb }
+                                  .on("erb") { compress render_erb }
+                                  .match
     end
 
     def permalink
