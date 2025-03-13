@@ -12,7 +12,7 @@ module Troy
     end
 
     # Create a new Redcarpet renderer, that prepares the code block
-    # to use Prisme.js syntax.
+    # to use rouge syntax.
     #
     module Rouge
       include ::Rouge::Plugins::Redcarpet

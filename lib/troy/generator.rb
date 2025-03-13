@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module Troy
-  # The Troy::Generator class will create a new book structure.
+  # The Troy::Generator class will create a new site structure.
   #
   #   ebook = Troy::Generator.new
-  #   ebook.destination_root = "/some/path/book-name"
+  #   ebook.destination_root = "/some/path/site-name"
   #   ebook.invoke_all
   #
   class Generator < Thor::Group
@@ -35,10 +35,9 @@ module Troy
       copy_file "500.erb", "source/500.erb"
       copy_file "Gemfile", "Gemfile"
       copy_file "config.ru", "config.ru"
-      copy_file "unicorn.rb", "config/unicorn.rb"
       copy_file "troy.rb", "config/troy.rb"
-      copy_file "style.scss", "assets/stylesheets/style.scss"
-      copy_file "script.js", "assets/javascripts/script.js"
+      copy_file "style.css", "assets/styles/main.css"
+      copy_file "script.js", "assets/scripts/main.js"
     end
 
     def bundle_install

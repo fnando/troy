@@ -40,13 +40,14 @@ module Troy
     end
 
     def content
-      ExtensionMatcher.new(path)
-                      .default { meta.content }
-                      .on("builder") { XML.new(meta.content, to_context).to_xml }
-                      .on("erb") { EmbeddedRuby.new(meta.content, to_context).render }
-                      .on("md") { Markdown.new(meta.content).to_html }
-                      .on("txt") { EmbeddedRuby.new(meta.content, to_context).render }
-                      .match
+      ExtensionMatcher
+        .new(path)
+        .default { meta.content }
+        .on("builder") { XML.new(meta.content, to_context).to_xml }
+        .on("erb") { EmbeddedRuby.new(meta.content, to_context).render }
+        .on("md") { Markdown.new(meta.content).to_html }
+        .on("txt") { EmbeddedRuby.new(meta.content, to_context).render }
+        .match
     end
 
     def to_context

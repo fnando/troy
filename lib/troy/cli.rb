@@ -58,15 +58,18 @@ module Troy
 
     desc "server", "Start a server"
     option :port, type: :numeric, default: 9292, aliases: "-p"
-    option :host, type: :string, default: "0.0.0.0", aliases: "-b"
+    option :host, type: :string, default: "127.0.0.1", aliases: "-b"
     def server
       begin
-        handler = Rack::Handler.pick(%w[puma thin unicorn webrick])
+        handler = Rackup::Handler.pick(%i[puma thin webrick])
       rescue Exception
-        raise Error, "No Rack handler found. Install a Rack handler (e.g. puma, thing, unicorn, webrick)"
+        raise Error,
+              "No Rack handler found. Install a Rack handler (e.g. puma, thing, unicorn, webrick)"
       end
 
-      handler.run Troy::Server.new(File.join(Dir.pwd, "public")), Port: options[:port], Host: options[:host]
+      handler.run Troy::Server.new(File.join(Dir.pwd, "public")),
+                  Port: options[:port],
+                  Host: options[:host]
     end
 
     no_commands do

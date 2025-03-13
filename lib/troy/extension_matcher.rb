@@ -2,11 +2,7 @@
 
 module Troy
   class ExtensionMatcher
-    attr_reader :path
-
-    attr_reader :performed
-
-    attr_reader :matchers
+    attr_reader :path, :performed, :matchers
 
     def initialize(path)
       @path = path

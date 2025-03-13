@@ -5,7 +5,7 @@ module Troy
     extend Forwardable
     def_delegators :data, :[], :fetch, :key?
 
-    REGEX = /^---\n(.*?)\n---\n+/m.freeze
+    REGEX = /^---\n(.*?)\n---\n+/m
 
     attr_reader :file
 
@@ -19,7 +19,7 @@ module Troy
 
     def data
       @data ||=
-        raw =~ REGEX ? YAML.unsafe_load(raw[REGEX, 1]) : {}
+        REGEX.match?(raw) ? YAML.unsafe_load(raw[REGEX, 1]) : {}
     end
 
     def method_missing(name, *_args)

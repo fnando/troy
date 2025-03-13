@@ -13,6 +13,7 @@ require "sprockets"
 require "thor"
 require "thor/group"
 require "rack"
+require "rackup/handler"
 require "uglifier"
 require "html_press"
 

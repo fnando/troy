@@ -48,7 +48,9 @@ module Troy
 
     def export_file(assets, entry)
       basename = entry.to_s
-      return if [".", "..", "javascripts", "stylesheets"].include?(basename)
+      ignore = [".", "..", "javascripts", "stylesheets", "scripts", "styles"]
+
+      return if ignore.include?(basename)
 
       FileUtils.rm_rf root.join("public/#{basename}")
       FileUtils.cp_r assets.join(entry), root.join("public/#{basename}")
@@ -78,6 +80,8 @@ module Troy
       sprockets = Sprockets::Environment.new
       sprockets.append_path root.join("assets/javascripts")
       sprockets.append_path root.join("assets/stylesheets")
+      sprockets.append_path root.join("assets/scripts")
+      sprockets.append_path root.join("assets/styles")
 
       if config.assets.compress_css
         sprockets.css_compressor = Sprockets::SassCompressor
@@ -108,6 +112,7 @@ module Troy
     def uglifier_options
       options = Uglifier::DEFAULTS.dup
       options[:output][:comments] = :none
+      options[:harmony] = true
       options
     end
 

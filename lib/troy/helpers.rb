@@ -6,8 +6,8 @@ module Troy
       CGI.escapeHTML(content)
     end
 
-    def t(*args, **kwargs)
-      I18n.t(*args, **kwargs)
+    def t(*, **)
+      I18n.t(*, **)
     end
 
     def partial(name, locals = {})

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Troy.configure do |config|
   # Set the current locale.
   config.i18n.locale = "en"
@@ -9,7 +11,7 @@ Troy.configure do |config|
 
   # These are the assets that you want
   # to precompile.
-  config.assets.precompile = %w[style.css script.js]
+  config.assets.precompile = %w[main.css main.js]
 
   # Compress HTML, removing whitespaces.
   config.assets.compress_html = true
