@@ -48,6 +48,8 @@ module Troy
         redirect normalized_path
       elsif (file_path = Pathname.new("#{path}.html")).file?
         render(200, "text/html; charset=utf-8", file_path)
+      elsif (file_path = Pathname.new("#{path}/index.html")).file?
+        render(200, "text/html; charset=utf-8", file_path)
       elsif (file_path = Pathname.new("#{path}.xml")).file?
         render(200, "text/xml; charset=utf-8", file_path)
       elsif path.file?
