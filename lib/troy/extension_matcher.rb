@@ -21,7 +21,7 @@ module Troy
 
     def match
       matchers.each do |ext, handler|
-        return handler.call if File.extname(path) == ext
+        return handler.call if File.basename(path).end_with?(ext)
       end
 
       matchers["default"]&.call

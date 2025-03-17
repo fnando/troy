@@ -52,7 +52,7 @@ module Troy
       end
 
       def heading_counter
-        @heading_counter ||= Hash.new {|h, k| h[k] = 0}
+        @heading_counter ||= Hash.new {|h, k| h[k] = 0 }
       end
     end
 

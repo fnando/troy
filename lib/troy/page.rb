@@ -44,6 +44,7 @@ module Troy
         .new(path)
         .default { meta.content }
         .on("builder") { XML.new(meta.content, to_context).to_xml }
+        .on("md.erb") { Markdown.new(EmbeddedRuby.new(meta.content, to_context).render).to_html } # rubocop:disable Layout/LineLength
         .on("erb") { EmbeddedRuby.new(meta.content, to_context).render }
         .on("md") { Markdown.new(meta.content).to_html }
         .on("txt") { EmbeddedRuby.new(meta.content, to_context).render }
@@ -66,11 +67,11 @@ module Troy
     #
     def render
       ExtensionMatcher.new(path)
-                                  .default { content }
-                                  .on("html") { compress render_erb }
-                                  .on("md") { compress render_erb }
-                                  .on("erb") { compress render_erb }
-                                  .match
+                      .default { content }
+                      .on("html") { compress render_erb }
+                      .on("md") { compress render_erb }
+                      .on("erb") { compress render_erb }
+                      .match
     end
 
     def permalink
