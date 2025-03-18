@@ -21,6 +21,39 @@ module Troy
     module Rouge
       include ::Rouge::Plugins::Redcarpet
 
+      # Be more flexible than github and support any arbitrary name.
+      ALERT_MARK = /^\[!(?<type>[A-Z]+)\](?<title>.*?)?$/
+
+      # Support alert boxes just like github.
+      # https://github.com/orgs/community/discussions/16925
+      def block_quote(quote)
+        html = Nokogiri::HTML.fragment(quote)
+        element = html.children.first
+        matches = element.text.to_s.match(ALERT_MARK) if element
+        return "<blockquote>#{quote}</blockquote>" unless matches
+
+        element.remove
+
+        type = matches[:type].downcase
+        title = matches[:title].to_s.strip
+        title = I18n.t(type, scope: :alerts, default: title)
+
+        html = Nokogiri::HTML.fragment <<~HTML
+          <div class="alert-message #{type}">
+            <p class="alert-message--title"></p>
+            #{html}
+          </div>
+        HTML
+
+        if title.empty?
+          html.css(".alert-message--title").first.remove
+        else
+          html.css(".alert-message--title").first.content = title
+        end
+
+        html.to_s
+      end
+
       def header(text, level)
         matches = text.strip.match(HEADING_ID)
         title = matches[:text].strip
