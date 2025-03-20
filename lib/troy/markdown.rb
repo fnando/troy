@@ -110,7 +110,6 @@ module Troy
                                             fenced_code_blocks: true,
                                             footnotes: true,
                                             tables: true,
-                                            underline: true,
                                             strikethrough: true,
                                             highlight: true)
     end
